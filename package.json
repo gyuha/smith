@@ -1,0 +1,26 @@
+{
+  "name": "anvil-and-levy",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "e2e": "vite build && vitest run --config vitest.e2e.config.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/pngjs": "^6.0.5",
+    "galmuri": "^2.40.3",
+    "playwright": "^1.65.1",
+    "pngjs": "^7.0.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
+  },
+  "dependencies": {
+    "pixelfx": "github:patch-gg/pixelfx"
+  }
+}
