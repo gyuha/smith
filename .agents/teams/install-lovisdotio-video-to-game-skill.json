@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "goal": "3D 아이템 제작 게임",
+  "orchestrator": {
+    "workspace": "Install lovisdotio video-to-game skill",
+    "provider": "claude",
+    "model": "claude-opus-5-5"
+  },
+  "roles": [
+    {
+      "name": "gameplay",
+      "provider": "claude",
+      "model": "claude-sonnet-5-5",
+      "folders": [
+        "index.html",
+        "SPEC.md"
+      ],
+      "instructions": "index.html에 단일 파일로 들어 있는 Three.js 게임을 맡아 제작 루프(재료, 타격·강화 판정, 상점, 내구도, 경제)를 구현하고 확장합니다. 플레이테스트가 읽는 window.__game.state 계약과 ?seed / ?autostart URL 파라미터는 깨지지 않게 유지하고, 메커니즘을 바꾸면 SPEC.md도 함께 갱신합니다."
+    },
+    {
+      "name": "art3d",
+      "provider": "codex",
+      "model": "gpt-5.6-luna",
+      "folders": [
+        "assets/models",
+        "assets/textures",
+        "build_props.py",
+        "shrink.py",
+        "refs"
+      ],
+      "instructions": "아이템과 소품의 3D 에셋을 만듭니다. Blender 소품은 build_props.py로, 생성 메시는 fal(이미지는 openai/gpt-image-2.5/flare/edit, quality=medium / image-to-3D는 meshy)로 만들고 shrink.py로 줄입니다. 이미 정해진 올리브 그래파이트 팔레트와 글로우 기반 등급 표현을 지키고, fal 호출은 전부 fal_log.json에 기록합니다."
+    },
+    {
+      "name": "audio",
+      "provider": "opencode",
+      "model": "opencode-go/muse-spark-1.3-contributor",
+      "folders": [
+        "assets/sfx",
+        "assets/music"
+      ],
+      "instructions": "새로운 제작 이벤트(재료 투입, 강화 결과, 파괴, 판매)에 맞는 효과음과 음악 큐를 fal의 elevenlabs 엔드포인트로 한 번에 한 작업씩 생성하고 fal_log.json에 기록합니다. 기존 파일을 덮어쓰지 말고, gameplay에 파일명과 트리거 매핑을 넘겨줍니다."
+    },
+    {
+      "name": "qa",
+      "provider": "claude",
+      "model": "claude-sonnet-5-5",
+      "folders": [
+        "play.mjs",
+        "shot.mjs",
+        "Taskfile.yml",
+        "probe",
+        "takes",
+        "pairs"
+      ],
+      "instructions": "task verify / shot / record로 매 변경을 헤드리스로 검증합니다. 콘솔 에러 0, 60fps, 시드를 고정한 키보드 시나리오(play.mjs)가 끝까지 플레이되는지 확인하고, 회귀가 나오면 재현 쿼리와 스크린샷을 붙여 해당 역할에 보고합니다. 게임 코드와 에셋은 직접 고치지 않습니다."
+    }
+  ]
+}

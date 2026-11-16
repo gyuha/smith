@@ -1,0 +1,9 @@
+*.mp4
+
+# tooling and scratch
+node_modules/
+.task/
+probe/
+
+# recorded takes are too large for git (see README); keep them locally
+takes/
